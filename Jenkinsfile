@@ -26,6 +26,13 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 script {
+                    // Install distutils (needed for Python 3.12)
+                    sh 'sudo apt-get install python3-distutils -y'  // Install distutils package
+
+                    // Upgrade setuptools to ensure the environment is up-to-date
+                    sh '. venv/bin/activate && pip install --upgrade setuptools'  // Upgrade setuptools
+
+                    // Install other dependencies from the requirements.txt
                     sh '. venv/bin/activate && pip install -r ${REQUIREMENTS}'  // Install dependencies
                 }
             }
@@ -59,7 +66,7 @@ pipeline {
 
     post {
         always {
-           echo 'Build Success'
+            // Notifications or actions after the pipeline run
         }
         success {
             echo 'Pipeline completed successfully!'
