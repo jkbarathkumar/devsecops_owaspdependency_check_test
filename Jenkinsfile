@@ -59,7 +59,7 @@ pipeline {
 
     post {
         always {
-            // Notifications or actions after the pipeline run
+           echo 'Build Success'
         }
         success {
             echo 'Pipeline completed successfully!'
